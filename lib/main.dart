@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kopgit_basic/components/menu_item.dart';
+import 'package:kopgit_basic/single.dart';
+
+import 'constants.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,9 +11,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      home: Scaffold(
-        body: MainScreen(),
-      ),
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => const Scaffold(body: MainScreen()),
+        '/single': (context) => const Scaffold(body: Single()),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        //'/second': (context) => const SecondScreen(),
+      },
     );
   }
 }
@@ -23,7 +31,12 @@ class MainScreen extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: Deneme(),
+      child: Column(
+        children: [
+          SizedBox(height: 40),
+          Deneme(),
+        ],
+      ),
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/background.jpg'),
@@ -33,43 +46,33 @@ class MainScreen extends StatelessWidget {
 }
 
 class Deneme extends StatelessWidget {
-  const Deneme({
+  Deneme({
     Key? key,
   }) : super(key: key);
 
+  List<String> konular = Constants.konular;
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        TextButton.icon(
-          icon: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(border: Border.all(color: Colors.yellow)),
-            child: SvgPicture.asset(
-              "assets/svgs/user.svg",
-              fit: BoxFit.fill,
-              semanticsLabel: 'Acme Logo',
-              width: 20,
-              height: 20,
-              color: Colors.white,
-            ),
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: konular.length,
+      itemBuilder: (context, index) {
+        return Hero(
+          tag: index,
+          child: Material(
+            child: menuItem(context, () {
+              Navigator.pushNamed(context, '/single',
+                  arguments: {index, 'assets/svgs/user.svg'});
+            }, konular[index], 'assets/svgs/user.svg',
+                index % 2 == 0 ? Alignment.centerLeft : Alignment.centerRight),
           ),
-          style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 7),
-              backgroundColor: Colors.black,
-              primary: Colors.white),
-          label: Text(
-            "Meleklere İman",
-            style: TextStyle(fontFamily: "Exo", fontWeight: FontWeight.bold),
-          ),
-          onPressed: () {},
-        )
-      ],
-    ));
+        );
+      },
+    );
+  }
+
+  double getResponsiveSize(BuildContext context, {double size = 0.5}) {
+    return MediaQuery.of(context).size.width * size;
   }
 }
