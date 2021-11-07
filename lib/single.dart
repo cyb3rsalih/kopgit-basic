@@ -54,6 +54,7 @@ class Single extends StatelessWidget {
                     child: Hero(
                       tag: 8,
                       child: Material(
+                        color: Colors.transparent,
                         child: menuItem(context, () {
                           Navigator.pushNamed(
                             context,

@@ -61,6 +61,7 @@ class Deneme extends StatelessWidget {
         return Hero(
           tag: index,
           child: Material(
+            color: Colors.transparent,
             child: menuItem(context, () {
               Navigator.pushNamed(context, '/single',
                   arguments: {index, 'assets/svgs/user.svg'});
