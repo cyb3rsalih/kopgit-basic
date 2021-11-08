@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kopgit_basic/components/menu_item.dart';
-import 'package:kopgit_basic/single.dart';
+import 'package:kopgit_basic/route_generator.dart';
 
 import 'constants.dart';
 
@@ -11,14 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      initialRoute: '/',
-      routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => const Scaffold(body: MainScreen()),
-        '/single': (context) => const Scaffold(body: Single()),
-        // When navigating to the "/second" route, build the SecondScreen widget.
-        //'/second': (context) => const SecondScreen(),
-      },
+      onGenerateRoute: RouteGenerator.routeGenerator,
     );
   }
 }
@@ -28,19 +21,19 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          SizedBox(height: 40),
-          Deneme(),
-        ],
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: SingleChildScrollView(child: Deneme()),
+        ),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/background.jpg'),
+                fit: BoxFit.cover)),
       ),
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/background.jpg'),
-              fit: BoxFit.cover)),
     );
   }
 }
@@ -50,11 +43,14 @@ class Deneme extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  List<String> konular = Constants.konular;
+  Map<int, String> konular = Constants.konular;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
+      separatorBuilder: (context, index) {
+        return SizedBox(height: getResponsiveSize(context, size: 0.07));
+      },
       shrinkWrap: true,
       itemCount: konular.length,
       itemBuilder: (context, index) {
@@ -63,9 +59,8 @@ class Deneme extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: menuItem(context, () {
-              Navigator.pushNamed(context, '/single',
-                  arguments: {index, 'assets/svgs/user.svg'});
-            }, konular[index], 'assets/svgs/user.svg',
+              Navigator.of(context).pushNamed('/single', arguments: index);
+            }, konular[index]!, 'assets/svgs/user.svg',
                 index % 2 == 0 ? Alignment.centerLeft : Alignment.centerRight),
           ),
         );
