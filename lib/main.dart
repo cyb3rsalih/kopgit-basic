@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:kopgit_basic/components/menu_item.dart';
+import 'package:kopgit_basic/constants.dart';
 import 'package:kopgit_basic/route_generator.dart';
 
-import 'constants.dart';
+import 'anasayfa.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Material App',
       onGenerateRoute: RouteGenerator.routeGenerator,
     );
@@ -26,49 +28,44 @@ class MainScreen extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: SingleChildScrollView(child: Deneme()),
+          padding: const EdgeInsets.only(top: 40),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 30, left: 50, right: 50),
+                      child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Color(Constants.bordo),
+                              border: Border.all(color: Colors.white, width: 2),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Text(
+                            "KOPGIT BASIC",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontFamily: 'KGSecond'),
+                          )),
+                    )),
+                Expanded(
+                    flex: 9, child: SingleChildScrollView(child: Anasayfa())),
+              ],
+            ),
+          ),
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/background.jpg'),
                 fit: BoxFit.cover)),
       ),
     );
-  }
-}
-
-class Deneme extends StatelessWidget {
-  Deneme({
-    Key? key,
-  }) : super(key: key);
-
-  Map<int, String> konular = Constants.konular;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context, index) {
-        return SizedBox(height: getResponsiveSize(context, size: 0.07));
-      },
-      shrinkWrap: true,
-      itemCount: konular.length,
-      itemBuilder: (context, index) {
-        return Hero(
-          tag: index,
-          child: Material(
-            color: Colors.transparent,
-            child: menuItem(context, () {
-              Navigator.of(context).pushNamed('/single', arguments: index);
-            }, konular[index]!, 'assets/svgs/user.svg',
-                index % 2 == 0 ? Alignment.centerLeft : Alignment.centerRight),
-          ),
-        );
-      },
-    );
-  }
-
-  double getResponsiveSize(BuildContext context, {double size = 0.5}) {
-    return MediaQuery.of(context).size.width * size;
   }
 }

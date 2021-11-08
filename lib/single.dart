@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'components/menu_item.dart';
+import 'components/pdf_viewer.dart';
 import 'constants.dart';
 
 class SinglePage extends StatelessWidget {
@@ -39,8 +40,8 @@ class SinglePage extends StatelessWidget {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.5,
                             height: MediaQuery.of(context).size.height * 0.1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(20.0),
                               child: LinearProgressIndicator(
                                 value: 0.4,
                               ),
@@ -62,7 +63,7 @@ class SinglePage extends StatelessWidget {
                               context,
                               '/',
                             );
-                          }, Constants.konular[itemIndex]!,
+                          }, Constants.konular[itemIndex],
                               'assets/svgs/user.svg', Alignment.centerLeft),
                         ),
                       ),
@@ -70,6 +71,7 @@ class SinglePage extends StatelessWidget {
                 Expanded(
                     flex: 7,
                     child: Container(
+                        child: Center(child: PdfViewer()),
                         decoration: const BoxDecoration(color: Colors.green))),
               ],
             )),
@@ -77,3 +79,11 @@ class SinglePage extends StatelessWidget {
     );
   }
 }
+
+
+
+// child: SingleChildScrollView(
+//                           child: Bubble(
+//                             longText: Text(Constants.onucuncuLema),
+//                           ),
+//                         ),

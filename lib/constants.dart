@@ -1,13 +1,34 @@
+import 'package:flutter/material.dart';
+
 class Constants {
-  static Map<int, String> konular = {
-    0: "Allah'a İman (23.Lem'a)",
-    1: "Nübüvvet Delilleri (19.Mektup)",
-    2: "Ahirete İman (10.Söz)",
-    3: "Kadere İman (26.Söz)",
-    4: "Meleklere İman (29.Söz)",
-    5: "Namaza Dair (4,9,21.Söz)",
-    6: "Besmeledeki Sır (1.Söz)",
-    7: "Şeytan & Kötülük Problemi (13.Lem'a)",
-    8: "Vesvese (21.Söz 2.Makam)"
-  };
+  static int bordo = 0xFF68110B;
+  static List<String> konular = [
+    "Allah'a İman (23.Lem'a)",
+    "Nübüvvet Delilleri (19.Mektup)",
+    "Ahirete İman (10.Söz)",
+    "Kadere İman (26.Söz)",
+    "Meleklere İman (29.Söz)",
+    "Namaza Dair (4,9,21.Söz)",
+    "Besmeledeki Sır (1.Söz)",
+    "Şeytan & Kötülük Problemi (13.Lem'a)",
+    "Vesvese (21.Söz 2.Makam)"
+  ];
+
+  static List<String> menuIcons = [
+    "iman.svg",
+    "nubuvvet.svg",
+    "ahiret.svg",
+    "kader.svg",
+    "melekler.svg",
+    "namaz.svg",
+    "bismillah.svg",
+    "seytan.svg",
+    "vesvese.svg"
+  ];
+
+  static String onucuncuLema = "Bir takım dini bilgiler";
+
+  static double getResponsiveSize(BuildContext context, {double size = 0.5}) {
+    return MediaQuery.of(context).size.width * size;
+  }
 }
