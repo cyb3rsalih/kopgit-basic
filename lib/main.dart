@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kopgit_basic/components/my_app_bar.dart';
+import 'package:kopgit_basic/components/main_app_bar.dart';
 import 'package:kopgit_basic/route_generator.dart';
 
 import 'anasayfa.dart';
@@ -24,7 +24,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarBuild(),
+      appBar: appBarBuild(context),
       body: const Center(
         child: SingleChildScrollView(
           child: Anasayfa(),

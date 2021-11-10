@@ -22,12 +22,17 @@ class Anasayfa extends StatelessWidget {
           tag: index,
           child: Material(
             color: Colors.transparent,
-            child: menuItem(context, () {
-              Navigator.of(context).pushNamed('/single', arguments: index);
-            },
-                Constants.konular[index],
-                'assets/svgs/icons/' + Constants.menuIcons[index],
-                index % 2 == 0 ? Alignment.centerLeft : Alignment.centerRight),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: menuItem(context, () {
+                Navigator.of(context).pushNamed('/single', arguments: index);
+              },
+                  Constants.konular[index],
+                  'assets/svgs/icons/' + Constants.menuIcons[index],
+                  index % 2 == 0
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight),
+            ),
           ),
         );
       },
