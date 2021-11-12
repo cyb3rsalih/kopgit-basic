@@ -24,20 +24,16 @@ AppBar appBarBuild(BuildContext context) {
       child: IconButton(
         iconSize: 30,
         icon: Icon(Icons.account_circle_outlined),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: () {},
       ),
     ),
     actions: [
       Padding(
-        padding: const EdgeInsets.only(right: 25.0),
+        padding: EdgeInsets.only(right: 25.0),
         child: IconButton(
           iconSize: 30,
           icon: Icon(Icons.help_outline_outlined),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () {},
         ),
       ),
     ],
